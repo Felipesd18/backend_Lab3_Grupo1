@@ -17,7 +17,7 @@ import grupo1.backend.repositories.HabilidadRepository;
 public class VoluntarioService {
 
     private final VoluntarioRepository voluntarioRepository;
-    
+
     private final HabilidadRepository habilidadRepository;
 
     public VoluntarioService(VoluntarioRepository voluntarioRepository, HabilidadRepository habilidadRepository) {
@@ -59,18 +59,31 @@ public class VoluntarioService {
         voluntarioRepository.deleteById(id);
     }
 
-    public Voluntario agregarHabilidad(String idV,String idH){
+    public Voluntario agregarHabilidad(String idV, String idH) {
 
         Voluntario savedVoluntario = voluntarioRepository.findById(idV)
-        .orElseThrow(() -> new RuntimeException(
-                String.format("No se pudo encontrar un Voluntario por el id %s", idV)));
-        
+                .orElseThrow(() -> new RuntimeException(
+                        String.format("No se pudo encontrar un Voluntario por el id %s", idV)));
+
         Habilidad savedHabilidad = habilidadRepository.findById((idH)).orElseThrow(() -> new RuntimeException(
-                String.format("No se pudo encontrar un Voluntario por el id %s",idH)));                
-        ArrayList<Habilidad> nuevasHabilidades= savedVoluntario.getHabilidades();  
-        nuevasHabilidades.add(savedHabilidad);               
+                String.format("No se pudo encontrar un Voluntario por el id %s", idH)));
+        ArrayList<Habilidad> nuevasHabilidades = savedVoluntario.getHabilidades();
+        nuevasHabilidades.add(savedHabilidad);
         savedVoluntario.setHabilidades(nuevasHabilidades);
         voluntarioRepository.save(savedVoluntario);
         return savedVoluntario;
+    }
+
+    public float calculateAvarageHabilidades() {
+
+        List<Voluntario> voluntarios = voluntarioRepository.findAll();
+        float promedio = 0;
+        int sumCantidadH = 0;
+        for (int i = 0; i < voluntarios.size(); i++) {
+            sumCantidadH = sumCantidadH + voluntarios.get(i).getHabilidades().size();
+        }
+        promedio = sumCantidadH / voluntarios.size();
+        return promedio;
+
     }
 }

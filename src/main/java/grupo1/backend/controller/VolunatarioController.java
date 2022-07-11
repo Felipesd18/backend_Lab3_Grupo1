@@ -59,10 +59,15 @@ public class VolunatarioController {
     }
 
     @PostMapping("/{idV}/{idH}")
-    public ResponseEntity addHablidad(@PathVariable String idV,@PathVariable String idH) {
+    public ResponseEntity addHablidad(@PathVariable String idV, @PathVariable String idH) {
         System.out.println(idV);
         System.out.println(idH);
-        voluntarioService.agregarHabilidad(idV,idH);
+        voluntarioService.agregarHabilidad(idV, idH);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/calculateAvarageHabilidades")
+    public ResponseEntity calculateAvarageHabilidades() {
+        return ResponseEntity.ok(voluntarioService.calculateAvarageHabilidades());
     }
 }
