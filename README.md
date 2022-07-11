@@ -3,7 +3,7 @@
 ### Requisitos
 * Versión de Java: 17
 * Gradle 5.x o superior
-* Mongo
+* MongoDB
 
 ### Instalacion del proyecto
 * Descargar el código fuente
