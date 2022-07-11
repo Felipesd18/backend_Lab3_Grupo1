@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import grupo1.backend.models.Voluntario;
 import grupo1.backend.service.VoluntarioService;
 
+import grupo1.backend.models.Habilidad;
+import grupo1.backend.service.HabilidadService;
+
 @RestController
 @RequestMapping("/voluntario")
 public class VolunatarioController {
@@ -55,4 +58,11 @@ public class VolunatarioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PostMapping("/{idV}/{idH}")
+    public ResponseEntity addHablidad(@PathVariable String idV,@PathVariable String idH) {
+        System.out.println(idV);
+        System.out.println(idH);
+        voluntarioService.agregarHabilidad(idV,idH);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }
